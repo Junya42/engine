@@ -7,7 +7,7 @@ double Convert(double degree) {
 
 Player::Player(void) {
 
-    upper = lower = w = a = s = d = up = left = down = right = 0;
+    debug = part = pause = upper = lower = w = a = s = d = up = left = down = right = 0;
 
     x = 70;
     y = -110;

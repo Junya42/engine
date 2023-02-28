@@ -3,6 +3,7 @@
 
 #include "define.hpp"
 #include <cmath>
+#include "mesh.hpp"
 
 struct Player {
     Player(void);
@@ -17,9 +18,13 @@ struct Player {
     int w, a, s, d;
     int up, left, down, right;
     int upper, lower;
+    int pause;
+    int part;
+    int debug;
 
     float   tcos[360];
     float   tsin[360];
+    vec3d   vCam;
 };
 
 #endif

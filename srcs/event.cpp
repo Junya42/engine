@@ -14,6 +14,29 @@ void    eventloop(sf::RenderWindow &window, Player &player) {
                     window.close();
                     break;
                 }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+                    if (player.pause)
+                        player.pause = 0;
+                    else
+                        player.pause = 1;
+                    std::cout << "Pause" << std::endl;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+                    player.debug = 1;
+                    std::cout << "Debug" << std::endl;          
+                }
+                else
+                    player.debug = 0;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+                    player.part = 1;
+                    std::cout << "Partionning" << std::endl;          
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
+                    if (player.part) {
+                        player.part = 0;
+                        std::cout << "DE-Partionning" << std::endl;
+                    }
+                }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                     player.left = 1;
                     std::cout << "Left" << std::endl;
