@@ -5,5 +5,6 @@
 #include <unistd.h>
 #include <cmath>
 #include "../includes/player.hpp"
+#include "mesh.hpp"
 
-void    eventloop(sf::RenderWindow &window, Player &player);
+vec3d    eventloop(sf::RenderWindow &window, Player &player);

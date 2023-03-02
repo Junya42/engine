@@ -1,10 +1,20 @@
 #include "../includes/event.hpp"
+#include "imconfig.h"
+#include "imgui-SFML.h"
+#include "imgui-SFML_export.h"
+#include "imgui.h"
+#include "imgui_internal.h"
+#include "imstb_rectpack.h"
+#include "imstb_textedit.h"
+#include "imstb_truetype.h"
 
-void    eventloop(sf::RenderWindow &window, Player &player) {
+vec3d    eventloop(sf::RenderWindow &window, Player &player) {
     sf::Event event;
 
+    vec3d   pos;
     while (window.pollEvent(event))
     {
+        ImGui::SFML::ProcessEvent(event);
         switch (event.type) {
             case sf::Event::Closed:
                 window.close();
@@ -40,6 +50,7 @@ void    eventloop(sf::RenderWindow &window, Player &player) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                     player.left = 1;
                     std::cout << "Left" << std::endl;
+                    pos.x -= 0.5f;
                 }
                 else {
                     player.left = 0;
@@ -47,6 +58,7 @@ void    eventloop(sf::RenderWindow &window, Player &player) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
                     player.right = 1;
                     std::cout << "Right" << std::endl;
+                    pos.x += 0.5f;
                 }
                 else {
                     player.right = 0;
@@ -54,13 +66,21 @@ void    eventloop(sf::RenderWindow &window, Player &player) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
                     player.up = 1;
                     std::cout << "Up" << std::endl;
+                    pos.y -= 0.5f;
                 }
                 else {
                     player.up = 0;
                 }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
+                    pos.z += 0.5;
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+                    pos.z -= 0.5f;
+                }
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
                     player.down = 1;
                     std::cout << "Down" << std::endl;
+                    pos.y += 0.5f;
                 }
                 else {
                     player.down = 0;
@@ -112,4 +132,5 @@ void    eventloop(sf::RenderWindow &window, Player &player) {
                 break;
         }
     }
+    return pos;
 }

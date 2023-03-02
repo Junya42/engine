@@ -13,7 +13,10 @@
 
 struct vec3d
 {
-    float x, y, z;
+    float x = 0;
+    float y = 0;
+    float z = 0;
+    float w = 1;
 };
 
 struct triangle
@@ -24,7 +27,14 @@ struct triangle
 
 struct mesh
 {
+    float   pos[3] = {0, 0, 15};
+    float   col[3] = {255, 255, 255};
+    float   rot[3] = {3.0f, 3.0f, 0};
+    bool    render = true;
+    bool    debug = false;
+    std::string name;
     std::vector<triangle> tris;
+    bool    select = false;
 
     bool    LoadObjectFile(std::string &filename) {
 
@@ -42,14 +52,12 @@ struct mesh
 
             std::istringstream s(line);
 
-            std::cout << "\033[1;31m" << line << "\033[0m" << std::endl;
             char junk;
             if (line[0] == 'v' && line[1] == ' ') {
 
                 vec3d v;
                 s >> junk >> v.x >> v.y >> v.z;
                 verts.push_back(v);
-                std::cout << "V: " << v.x << " " << v.y << " " << v.z << std::endl;
             }
             
             else if (line[0] == 'f') {
@@ -57,9 +65,7 @@ struct mesh
                 int f[3];
                 s >> junk >> f[0] >> f[1] >> f[2];
                 tris.push_back({verts[f[0] - 1], verts[f[1] - 1], verts[f[2] - 1]});
-                std::cout << "f" << std::endl;
             }
-            std::cout << std::endl;
         }
         std::cout << "Out of loading" << std::endl;
         return true;

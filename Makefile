@@ -2,10 +2,17 @@ NAME = sfml-app
 
 OBJ_DIR = objs
 
-SRCS = window.cpp \
+SRCS = main.cpp \
 		player.cpp \
 		event.cpp \
-		engine.cpp
+		engine.cpp \
+		imgui.cpp \
+		imgui_widgets.cpp \
+		imgui_tables.cpp \
+		imgui_draw.cpp \
+		imgui-SFML.cpp \
+		gui_objects.cpp \
+		gui_settings.cpp
 
 SRCS_DIR = $(shell find srcs -type d)
 SRC = $(SRCS)
@@ -18,7 +25,7 @@ DEPS = $(OBJS:%.o=%.d)
 
 CC = c++
 #FLAGS = -Wall -Wextra -Werror -std=c++98
-FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+FLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lglut -lGLU -lGL -Iincludes/imgui
 
 all: $(NAME)
 
@@ -32,6 +39,11 @@ $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 
 $(OBJ_DIR):
 	@mkdir -p $@
+
+depend:
+	apt-get update -y
+	apt-get upgrade -y
+	apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev libsfml-dev -y
 
 clean:
 	@echo "Removing objects and dependencies"
