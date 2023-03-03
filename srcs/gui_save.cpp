@@ -1,6 +1,7 @@
 #include "../includes/gui.hpp"
 #include <fstream>
 
+
 void    save_engine(Engine &engine) {
 
     std::ofstream file(engine.savefile.c_str(), std::ios_base::in | std::ios_base::trunc);
