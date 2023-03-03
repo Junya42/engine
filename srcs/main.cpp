@@ -25,11 +25,8 @@ int main()
     
     if (engine.create_window(sf::VideoMode(ScreenWidth, ScreenHeight), "Hello World!"))
         return 1;
-    ImGui::SFML::Init(engine.window);
-
-    //engine.onUserCreate("obj_files/teapot.obj");
-    engine.onUserCreate("obj_files/cube.obj");
-    //engine.onUserCreate("obj_files/spaceship.obj");   
+    //engine.onUserCreate("obj_files/axis.obj");
+    ImGui::SFML::Init(engine.window); 
     
     float   time = 0;
     sf::Clock deltaClock;
@@ -42,11 +39,13 @@ int main()
         
         ImGui::SFML::Update(engine.window, deltaClock.restart());
 
-        ImGui::Begin("Objects list", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+        
         object_window(engine);
-        ImGui::End();
-
+        select_window(engine);
+        save_load_window(engine);
+        
         engine.onUserUpdate(time);
+
         ImGui::SFML::Render(engine.window);
         engine.window.display();
         if (!engine.player.pause)

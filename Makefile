@@ -12,7 +12,9 @@ SRCS = main.cpp \
 		imgui_draw.cpp \
 		imgui-SFML.cpp \
 		gui_objects.cpp \
-		gui_settings.cpp
+		gui_settings.cpp \
+		gui_save.cpp \
+		gui_load.cpp
 
 SRCS_DIR = $(shell find srcs -type d)
 SRC = $(SRCS)

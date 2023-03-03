@@ -10,6 +10,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <map>
 #include <algorithm>
 
 struct mat4x4 {
@@ -188,7 +189,9 @@ struct Engine {
             std::cerr << "Couldn't load: " << filename << std::endl;
             exit(1);
         }
+        objCount++;
         newMesh.name = filename;
+        newMesh.id = objCount;
         // Projection Matrix
 
         matProj = Matrix_MakeProjection((float)FieldOfView, (float)ScreenHeight / (float)ScreenWidth, 0.1f, 1000.0f);
@@ -196,9 +199,18 @@ struct Engine {
         return true;
     }
 
+    float   to_radians(float degree) {
+        return (degree * (3.14159f / 180));
+    }
+
     bool    onUserUpdate(float fElapsedTime) {
         window.clear();
 
+        if (meshCube.empty()) {
+            //currTarget = NULL;
+            Targets.clear();
+            selectCount = 0;
+        }
         for (size_t index = 0; index < meshCube.size(); index++) {
             if (meshCube[index].render == false)
                 continue ;
@@ -207,10 +219,10 @@ struct Engine {
             fTheta = 1.0f * fElapsedTime;
 
             //matRotZ = Matrix_MakeRotationZ(fTheta * 0.5f);
-            matRotZ = Matrix_MakeRotationZ(meshCube[index].rot[2]);
+            matRotZ = Matrix_MakeRotationZ(to_radians(meshCube[index].rot[2]));
             //matRotX = Matrix_MakeRotationX(fTheta);
-            matRotY = Matrix_MakeRotationY(meshCube[index].rot[1]);
-            matRotX = Matrix_MakeRotationX(meshCube[index].rot[0]);
+            matRotY = Matrix_MakeRotationY(to_radians(meshCube[index].rot[1]));
+            matRotX = Matrix_MakeRotationX(to_radians(meshCube[index].rot[0]));
 
             mat4x4 matTrans;
             //matTrans = Matrix_MakeTranslation(0.0f, 0.0f, 5.0f);
@@ -322,7 +334,7 @@ struct Engine {
                 }
                 else {
 
-                    sf::VertexArray tmp(sf::Triangles, 4);
+                   /* sf::VertexArray tmp(sf::Triangles, 4);
 
                     tmp[0].position = sf::Vector2f(triProjected.p[0].x, triProjected.p[0].y);
                     tmp[1].position = sf::Vector2f(triProjected.p[1].x, triProjected.p[1].y);
@@ -332,8 +344,37 @@ struct Engine {
                     tmp[0].color = triProjected.color;
                     tmp[1].color = triProjected.color;
                     tmp[2].color = triProjected.color;
+                    */
+                    sf::ConvexShape polygon;
 
-                    window.draw(tmp);
+                    polygon.setPointCount(4);
+                    polygon.setPoint(0, sf::Vector2f(triProjected.p[0].x, triProjected.p[0].y));
+                    polygon.setPoint(1, sf::Vector2f(triProjected.p[1].x, triProjected.p[1].y));
+                    polygon.setPoint(2, sf::Vector2f(triProjected.p[2].x, triProjected.p[2].y));
+                    polygon.setPoint(3, sf::Vector2f(triProjected.p[0].x, triProjected.p[0].y));
+                    polygon.setFillColor(triProjected.color);
+
+                    if (select > 0) {
+                        sf::FloatRect boundingBox = polygon.getGlobalBounds();
+                        sf::Vector2f mpos = { (float)mouse.x, (float)mouse.y };
+                        if (boundingBox.contains(mpos)) {
+                            //currTarget = &meshCube[index];
+                            if (select == 2) {
+                                Targets.erase(meshCube[index].id);
+                                meshCube[index].debug = false;
+                                selectCount--;
+                            }
+                            else {
+                                Targets[meshCube[index].id] = &meshCube[index];
+                                meshCube[index].debug = true;
+                                selectCount++;
+                            }
+                            select = 0;
+                        }  
+                    }
+                    
+                    window.draw(polygon);
+                    //window.draw(tmp);
                     //if (player.debug) {
                     if (meshCube[index].debug) {
 
@@ -367,10 +408,17 @@ struct Engine {
     }
 
     sf::RenderWindow window;
+    std::string savefile = "save/default.save";
     std::vector<mesh> meshCube;
     Player player;
     mat4x4 matProj;
     float   fTheta;
+    sf::Vector2i mouse = {0, 0};
+    std::map<std::string, int> count;
+    std::map<int, mesh *> Targets;
+    int     objCount = 0;
+    int     select = 0;
+    int     selectCount = 0;
 };
 
 #endif

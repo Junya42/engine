@@ -29,13 +29,19 @@ struct mesh
 {
     float   pos[3] = {0, 0, 15};
     float   col[3] = {255, 255, 255};
-    float   rot[3] = {3.0f, 3.0f, 0};
+    float   rot[3] = {180.0f, 180.0f, 0.0f};
     bool    render = true;
     bool    debug = false;
+    int     count = 1;
+    int     id = 0;
     std::string name;
     std::vector<triangle> tris;
     bool    select = false;
 
+    bool    operator==(const mesh& m) {
+        return (id == m.id);
+    }
+    
     bool    LoadObjectFile(std::string &filename) {
 
         std::ifstream f(filename);

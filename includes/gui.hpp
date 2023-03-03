@@ -18,4 +18,7 @@
 #include <algorithm>
 
 void    GUIColors(void);
+void    load_engine(Engine &engine);
+void    save_load_window(Engine &engine);
+void    select_window(Engine &engine);
 void    object_window(Engine &engine);
