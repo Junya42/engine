@@ -1,34 +1,45 @@
 # 3D Object Viewer Project
 
-## Description
+## Project Summary
 
-This C++ project utilizes SFML to create an application that loads OBJ files and displays them in a 3D environment. Users can interact with the rendered meshes, performing actions like rotation, translation, and scaling.
+In this project, I created a C++ application using the SFML library to develop a 3D object viewer. The viewer allows loading and rendering OBJ files in a 3D environment, with interactive controls for manipulation.
 
-## Features
+## Features Implemented
 
-- Load and render OBJ files.
-- Display meshes in a 3D environment.
-- Interactive controls for rotation, translation, and scaling of meshes.
+- Utilized SFML library for graphics and window management.
+- Successfully loaded and rendered OBJ files.
+- Created a virtual 3D environment for displaying objects.
+- Implemented interactive controls for user interaction:
+  - Arrow keys or mouse: Rotate the displayed meshes.
+  - WASD keys: Move the meshes within the 3D space.
+  - +/- keys or scroll wheel: Scale the size of the rendered objects.
+  
+## Technical Details
 
-## Usage
+- Utilized C++ programming language for the application.
+- Integrated the SFML library to handle graphics and window management.
+- Implemented a file loading mechanism to load OBJ files.
+- Utilized mathematical transformations (rotation, translation, scaling) to manipulate the position and appearance of the rendered meshes.
 
-1. Compile the source code using SFML.
-2. Run the executable to load and view OBJ files in a 3D scene.
-3. Use keyboard or mouse controls to manipulate the rendered meshes.
+## How to Use
 
-## Controls
+1. Compile the C++ code with the required SFML dependencies.
+2. Launch the executable to open the 3D object viewer.
+3. Load an OBJ file from the application's interface.
+4. Interact with the loaded object using the provided controls: rotation, translation, and scaling.
 
-- Arrow keys or mouse: Rotate the meshes.
-- WASD keys: Move the meshes in the scene.
-- +/- keys or scroll wheel: Scale the meshes.
+## Achievements and Challenges
 
-## Contributions
+- Successfully integrated SFML and managed to render 3D objects in real-time.
+- Implemented interactive controls to enhance user experience.
+- Overcame challenges related to file loading, object manipulation, and rendering.
 
-Contributions are welcome through issues and pull requests for improvements and additional features.
+## Future Enhancements
 
-## Disclaimer
-
-This project aims to provide a basic 3D object viewer using SFML and fundamental 3D transformations. It is not intended for advanced rendering or complex scenes.
+While the current version provides basic functionality, potential future enhancements could include:
+- Implementing more advanced shading techniques for realistic lighting.
+- Adding support for additional 3D file formats.
+- Implementing collision detection to interact with the objects.
 
 ## References
 
